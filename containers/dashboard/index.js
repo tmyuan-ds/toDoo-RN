@@ -141,7 +141,7 @@ class Dashboard extends React.Component{
                         flexDirection:"row"}}>
                             {dateData.map( list => (
                             <TouchableOpacity style={[styles.headerButton, 
-                                {backgroundColor: this.state.selected ===list ?"rgb(0, 255, 0)":"darkgreen"}]}
+                                {backgroundColor: this.state.selected ===list ?"rgb(0, 255, 0)":"rgb(0, 150, 0)"}]}
                             onPress = {() => this.setState({selected: list})}
                             >
                                 <Text >{list}</Text>
@@ -275,7 +275,7 @@ const styles = {
     addButton:{
         width: 80,
         height: 80,
-        backgroundColor: "blue",
+        backgroundColor: "rgb(191, 255, 0)",
         borderRadius: 40,
         justifyContent:"center",
         alignItems:"center",

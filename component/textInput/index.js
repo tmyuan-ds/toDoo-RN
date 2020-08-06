@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
     title:{
         fontSize: 15,
         color: "white",
+        fontWeight: "bold"
     },
 
     formInput:{

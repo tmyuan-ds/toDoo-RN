@@ -15,7 +15,7 @@ class Details extends React.Component{
 
     render() {
         return(
-        <View style={{flex:1, backgroundColor: "rgb(59, 58, 58)"}}>
+        <View style={{flex:1, backgroundColor: "rgb(59, 58, 58)", justifyContent: "center", alignItems:'center'}}>
 
             <View style={styles.movieDetails}>
                 <Text style={styles.detailsTitle}>Movie Name: </Text>
@@ -35,7 +35,6 @@ class Details extends React.Component{
 
 const styles = {
     movieDetails:{
-        margin: 15,
         padding: 20,
         height: "90%",
         width: "90%",
