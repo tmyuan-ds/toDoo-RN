@@ -4,6 +4,7 @@ import TextInputComponent from "../../component/textInput";
 import SubmitButtonComponenet from "component/submit"
 import {CONTAINER} from "common/styles";
 import DateTimePicker from '@react-native-community/datetimepicker';
+import moment from 'moment';
 import * as ImagePicker from 'expo-image-picker';
 import DropDownPicker from 'react-native-dropdown-picker';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -24,7 +25,7 @@ class AddToDo extends React.Component{
             mode: 'date',
             show:false,
             show2:false,
-            selectedStartDate: null,
+            selectedStartDate: moment().format("DD-MM-YYYY"),
             selectedEndDate: null,
             image: null,
             selectedImage:'',
@@ -152,8 +153,9 @@ class AddToDo extends React.Component{
                             }}
                             onPress={()=>this.setState({show:true})}
                         >
-                            <Text style={{marginLeft:10}}>{this.state.selectedStartDate === null ? "---------------" :
-                            JSON.stringify(this.state.selectedStartDate)}</Text>
+                            <Text style={{marginLeft:10}}>
+                                {this.state.selectedStartDate}
+                            </Text>
                         </TouchableOpacity>
                     </View>
 
@@ -171,8 +173,7 @@ class AddToDo extends React.Component{
                             onPress={()=>this.setState({show2:true})}
                         >
 
-                            <Text style={{marginLeft:10}}>{this.state.selectedEndDate === null ? "---------------" :
-                            JSON.stringify(this.state.selectedEndDate)}</Text>
+                            <Text style={{marginLeft:10}}>{this.state.selectedEndDate}</Text>
                         </TouchableOpacity>
                     </View>
 
@@ -182,10 +183,10 @@ class AddToDo extends React.Component{
                         mode={this.state.mode}
                         style={{backgroundColor:"white"}}
                         // onChange={()=>console.log(date)}
-                        onChange={(event, a, selectedDate2)=>
+                        onChange={(event, a)=>
                             { 
                                 // console.log(selectedDate);
-                                this.setState({selectedStartDate: a, show:false});
+                                this.setState({selectedStartDate: moment(a).format("DD-MM-YYYY, h:mm:ss a"), show:false});
                             }}
 
                     />}
@@ -195,10 +196,10 @@ class AddToDo extends React.Component{
                         mode={this.state.mode}
                         style={{backgroundColor:"white"}}
                         // onChange={()=>console.log(date)}
-                        onChange={(event, b, selectedDate2)=>
+                        onChange={(event, b)=>
                             { 
                                 // console.log(selectedDate);
-                                this.setState({selectedEndDate: b, show2:false});
+                                this.setState({selectedEndDate: moment(b).format("DD-MM-YYYY"), show2:false});
                             }}
 
                     />}

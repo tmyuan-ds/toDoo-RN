@@ -18,7 +18,7 @@ const movieData = [
     {
     name:"pokemon",
     desc: "this is a pokemon movie",
-    date: "8 November 2020",
+    date: "8 Nov 2020",
     type: "Personal",
 },
     {
@@ -36,7 +36,7 @@ const movieData = [
     {
     name:"pokemon",
     desc: "this is a pokemon movie",
-    date: "8 November 2020",
+    date: "8 Nov 2020",
     type: "Work"
 },
     {
@@ -54,7 +54,7 @@ const movieData = [
     {
     name:"Oliver",
     desc: "this is a pokemon movie",
-    date: "8 November 2020",
+    date: "8 Nov 2020",
     type: "Cook"
 },
     {
@@ -72,7 +72,7 @@ const movieData = [
     {
     name:"pokemon",
     desc: "this is a pokemon movie",
-    date: "8 November 2020",
+    date: "8 Nov 2020",
     type: "Investing"
 },
     {
@@ -90,7 +90,7 @@ const movieData = [
     {
     name:"pokemon",
     desc: "this is a pokemon movie",
-    date: "8 November 2020",
+    date: "8 Nov 2020",
     type: "Work",
 },
 

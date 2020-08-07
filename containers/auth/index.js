@@ -5,6 +5,9 @@ import Header from "component/header";
 import TextInputComponent from "component/textInput";
 import SubmitButtonComponent from 'component/submit';
 
+import {connect} from 'react-redux';
+import Actions from "actions";
+
 const images = {
   setting_icon: require("assets/images/icon2.png"),
   setting_icon_two :"https://img.icons8.com/all/500/microsoft-to-do-app.png"
@@ -18,6 +21,14 @@ class Auth extends React.Component{
             showLoginForm: true,
           }
       }
+
+    componentDidMount(){
+      this.props.onLogin();
+    }
+
+    buttonPressed(){
+      this.props.onLogin();
+    }
     
 
     render() {
@@ -77,7 +88,8 @@ class Auth extends React.Component{
                         buttonTitle="Login"
                         submitButtonText="Login"
                         // navigate={()=>console.log("Hi")}
-                        navigate={()=>this.props.navigation.navigate("BottomTab")}
+                        // navigate={()=>this.props.navigation.navigate("BottomTab")}
+                        navigate = {()=> this.buttonPressed()}
                     />
                 </View>
                 ) : (
@@ -216,4 +228,10 @@ const styles = StyleSheet.create({
   
   })
 
-export default Auth;
+
+  const mapStateToProps = (store)=>({});
+  const mapDispatchToProps = {
+    onLogin:Actions.login
+  };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Auth);
