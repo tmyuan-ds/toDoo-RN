@@ -1,7 +1,7 @@
 import {takeLatest, call ,all ,fork, put} from 'redux-saga/effects';
 import Actions from "actions";
 import * as api from "api";
-import {store} from "store/index";
+// import {store} from "store/index";
 
 //{data} destucture the data so we can avoid a step of console.log(data.data)
 function* updateStatus({data}) {

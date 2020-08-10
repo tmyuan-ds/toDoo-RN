@@ -1,7 +1,7 @@
 import * as login from "./login";
-// import * as register from "./register";
+import * as register from "./register";
 
 export default {
   ...login,
-  // ...register,
+  ...register,
 };

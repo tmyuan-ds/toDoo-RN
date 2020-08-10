@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Image, TouchableOpacity, StyleSheet, StatusBar} from "react-native";
+import { View, Text, Image, TouchableOpacity, StyleSheet, StatusBar, Alert, ScrollView} from "react-native";
 
 import Header from "component/header";
 import TextInputComponent from "component/textInput";
@@ -23,17 +23,50 @@ class Auth extends React.Component{
       }
 
     componentDidMount(){
-      this.props.onLogin();
+      console.log("DID MOUNT ", this.props.getUserSession);
+      const {getUserSession} = this.props;
+      if (Object.keys(getUserSession.data).length !== 0) {
+        this.props.navigation.navigate("BottomTab");
+      }
+    }
+    componentDidUpdate(prevProps){
+      const {getLoginData} = this.props;
+      console.log("login componenetDidUpdate", getLoginData);
+            //true                                //false
+      if (prevProps.getLoginData.isLoading && !getLoginData.isLoading) {
+        console.log("prevProps", prevProps.getLoginData.isLoading);
+        console.log("latest props", getLoginData.isLoading);
+
+        if(Object.keys(getLoginData.data).length !== 0 &&
+          getLoginData.data !== null) {
+          console.log("TOKEN is ", getLoginData.data);
+          Alert.alert("Success", "Login successful", [
+            {
+              text:'To Dash',
+              onPress:() => this.props.navigation.navigate("BottomTab"),
+            },
+          ]
+          );
+
+      } else if(getLoginData.error !== null) { 
+        Alert.alert("Failed", "Login Failed")
+        }
+      }
     }
 
     buttonPressed(){
-      this.props.onLogin();
+      const data = {
+        email:this.state.email,
+        password:this.state.password,
+      };
+
+      this.props.onLogin(data);
     }
     
 
     render() {
         return(
-            <View style={{flex: 1,backgroundColor:"black"}}>
+            <ScrollView style={{flex: 1,backgroundColor:"black"}}>
             {/* <View style={this.state.showLoginForm? styles.loginPage: styles.registerPage}> */}
                 < Header/>
                 <View style={styles.logoHolder}>
@@ -73,15 +106,18 @@ class Auth extends React.Component{
                 {this.state.showLoginForm ?(
                 <View style={{paddingHorizontal: 20}}>
                     <TextInputComponent
-                        inputTitle="Username"
-                        inputPlaceHolder="Your username"
+                        inputTitle="Email"
+                        inputPlaceHolder="Your email"
                         inputType="default"
+                        abc={(email)=>this.setState({email})}
                     />
                     <TextInputComponent
                         inputTitle="Password"
                         inputPlaceHolder="Your Password"
                         inputType="default"
                         inputSecure={true}
+                        abc={(password)=>this.setState({password})}
+
                     />
 
                     <SubmitButtonComponent
@@ -104,6 +140,7 @@ class Auth extends React.Component{
                     inputPlaceHolder="Your Password"
                     inputType="default"
                     inputSecure={true}
+                    showHide={true}
                     />
 
                     <TextInputComponent
@@ -126,7 +163,7 @@ class Auth extends React.Component{
                     />
                 </View>
                 )}
-            </View>
+            </ScrollView>
         )
     }
 };
@@ -229,7 +266,10 @@ const styles = StyleSheet.create({
   })
 
 
-  const mapStateToProps = (store)=>({});
+  const mapStateToProps = (store)=>({
+    getUserSession: Actions.getUserSession(store),
+    getLoginData: Actions.getLoginData(store),
+  });
   const mapDispatchToProps = {
     onLogin:Actions.login
   };

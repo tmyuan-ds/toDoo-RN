@@ -6,9 +6,17 @@
 
 import React from "react";
 import {View, Text, TextInput, StyleSheet} from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 
 class TextInputComponent extends React.Component{
+
+    constructor(props){
+        super(props);
+        this.state = {
+            viewPass: true,
+        };
+    }
     render(){
         return (
             <View>
@@ -17,10 +25,18 @@ class TextInputComponent extends React.Component{
                 placeholder={this.props.inputPlaceHolder} 
                 style={styles.formInput} 
                 keyboardType={this.props.inputType || "default"}
-                secureTextEntry={this.props.inputSecure || false} 
+                secureTextEntry={this.props.inputSecure && this.state.viewPass} 
                 // onChange={this.props.onChange}
                 onChangeText={this.props.abc}
                 />
+
+                {this.props.showHide && (
+                    <TouchableOpacity
+                     onPress={()=> this.setState({viewPass: !this.state.viewPass})}
+                     >
+                         <Text style={{color:"white"}}>{this.state.viewPass ? "show": "hide" }</Text>
+                    </TouchableOpacity>
+                )}
             </View>
         );
     }

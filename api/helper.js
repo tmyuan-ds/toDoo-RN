@@ -12,7 +12,7 @@ export const getHeader = () => {
 };
 
 const getFullUrl = endpoint => {
-  return "http://localhost:8083/" + endpoint;
+  return "https://c1907306323c.ngrok.io/" + endpoint;
   // return "http://localhost:8083/" + endpoint;
 };
 

@@ -1,6 +1,6 @@
 import React from "react";
-import { View, Text, StyleSheet, Image, FlatList } from "react-native";
-import { TouchableOpacity, BorderlessButton } from "react-native-gesture-handler";
+import { View, TouchableOpacity,Text, Image, FlatList, Alert } from "react-native";
+import { BorderlessButton } from "react-native-gesture-handler";
 import SubmitButtonComponenet from "component/submit"
 
 const images = {
@@ -8,8 +8,22 @@ const images = {
     setting_icon_two :"https://img.icons8.com/all/500/microsoft-to-do-app.png"
 }
 
+import {connect} from "react-redux";
+import Actions from "actions";
+
 
 class Profile extends React.Component{
+
+    logoutPressed(){
+        this.props.onResetUserSession();
+        Alert.alert("Bye Bye!", "Logout successful",[
+            {
+                text: "Okay",
+                onPress: () => this.props.navigation.navigate("Auth"),
+            },
+        ]);
+    }
+
     render(){
         return(
             <View style={{flex:1, backgroundColor: "black"}}>
@@ -44,11 +58,9 @@ class Profile extends React.Component{
                 
                 <View style={styles.logoutSec}>
 
-                    <SubmitButtonComponenet
-                        buttonTitle="Logout"
-                        submitButtonText="Logout"
-                        navigate={()=>this.props.navigation.navigate("Auth")}
-                    />
+                <TouchableOpacity onPress={()=>this.logoutPressed()}>
+                    <Text>Log Out</Text>
+                </TouchableOpacity>
 
                 </View>
             </View>
@@ -84,4 +96,10 @@ const styles = {
 
 }
 
-export default Profile;
+const mapStateToProps = (store) => ({});
+
+const mapDispatchToProps = {
+    onResetUserSession: Actions.resetUserSession
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

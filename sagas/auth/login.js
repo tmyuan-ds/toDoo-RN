@@ -9,15 +9,19 @@ function* login({ data }) {
   console.log("LOGIN SAGS");
 
   const formData = new FormData();
-  formData.append("email" , "test2@test.com"),
-  formData.append("password", "123456")
+  formData.append("email" , data.email);
+  formData.append("password", data.password);
 
   const { response, error } = yield call(api.login, formData);
   //debug tips 
   console.log("login saga", response, error);
 
-  return;
-  yield;
+  if (response && response.data.status === "success"){
+    yield put (Actions.loginSuccess(response.data.token));
+    yield put (Actions.activateUserSession(response.data.token));
+  } else if (error) {
+    yield put (Actions.loginFail(error.response));
+  }
 }
 
 function* watchLogin() {

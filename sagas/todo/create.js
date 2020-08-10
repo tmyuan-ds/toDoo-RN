@@ -1,7 +1,7 @@
 import {takeLatest, call ,all ,fork, put} from 'redux-saga/effects';
 import Actions from "actions";
 import * as api from "api";
-import {store} from "store/index";
+import {getStore} from "../../store/configureStore";
 
 //{data} destucture the data so we can avoid a step of console.log(data.data)
 function* createToDo({data}) {
@@ -12,14 +12,15 @@ function* createToDo({data}) {
     //db column name  //container form name
     // formData.append("id",data.id);
     // console.log(data.id);
+    let store = getStore().getState();
+        let token = Actions.activeUserSession(store).data;
+        console.log("token is: ", token);
+        const headers ={ Authorization: `Bearer ${token}`};
+        
     formData.append("task_title", data.title);
     formData.append("task_details", data.details);
 
 
-    let token = store.getState().PROFILE.userSession.data;
-    console.log("token is: ", token);
-
-    const headers ={ Authorization: `Bearer ${token}`};
     
     const {response, error} = yield call(api.createToDo, formData, headers);
     console.log(response, error);
