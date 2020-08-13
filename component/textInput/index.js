@@ -5,9 +5,7 @@
 //     alignItems: "center"}}>
 
 import React from "react";
-import {View, Text, TextInput, StyleSheet} from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
-
+import {View, Text, TextInput, StyleSheet, ActivityIndicator, TouchableOpacity} from "react-native";
 
 class TextInputComponent extends React.Component{
 

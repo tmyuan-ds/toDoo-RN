@@ -2,14 +2,13 @@ import {takeLatest, call ,all ,fork, put} from 'redux-saga/effects';
 import Actions from "actions";
 import * as api from "api";
 // import {store} from "store";
+import {getStore} from "../../store/configureStore";
 
 //{data} destucture the data so we can avoid a step of console.log(data.data)
 function* getAll() {
     // console.log("getAll saga");
-
-    let token = store.getState().PROFILE.userSession.data;
-    // console.log("token is: ", token);
-
+    let store = getStore().getState();
+    let token = Actions.getUserSession(store).data;
     const headers ={ Authorization: `Bearer ${token}`};
     
     const {response, error} = yield call(api.getAll, headers);

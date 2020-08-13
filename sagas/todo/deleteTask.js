@@ -2,11 +2,13 @@ import {takeLatest, call ,all ,fork, put} from 'redux-saga/effects';
 import Actions from "actions";
 import * as api from "api";
 // import {store} from "store/index";
+import {getStore} from "../../store/configureStore";
 
 //{data} destucture the data so we can avoid a step of console.log(data.data)
 function* deleteTask({data}) {
 
-    let token = store.getState().PROFILE.userSession.data;
+    let store = getStore().getState();
+    let token = Actions.getUserSession(store).data;
     const headers ={ Authorization: `Bearer ${token}`};
 
     const formData = new FormData();

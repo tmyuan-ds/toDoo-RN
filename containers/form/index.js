@@ -11,6 +11,9 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 
 import { ThemeProvider } from "@react-navigation/native";
+import Actions from "../../actions";
+import {connect} from 'react-redux';
+
 
 
 class AddToDo extends React.Component{
@@ -37,16 +40,47 @@ class AddToDo extends React.Component{
 
 
     addButtonPressed(){
+        // const {taskTitle, taskDetails, taskStatus} = this.state;
         const {taskTitle, taskDetails, taskStatus} = this.state;
+        const data = {
+            taskTitle: this.state.taskTitle,
+            taskDetails: this.state.taskDetails,
+        }
 
-        if(taskTitle !=='' && taskDetails !=='' && taskStatus !=='' ){
-            Alert.alert("Success", "Now task added!", 
-            [{text:"Hi there",
-            onPress:()=>this.props.navigation.navigate("Dashboard")}]);
+        this.props.onCreate(data);
+    }
+
+    componentDidUpdate(prevProps){
+        const {getCreateData} = this.props;
+        
+        if (prevProps.getCreateData.isLoading && !getCreateData.isLoading) {
+            console.log("prevProps", prevProps.getCreateData.isLoading);
+            console.log("latest props", getCreateData.isLoading);
+            
+            if(Object.keys(getCreateData.data).length !== 0 &&
+            getCreateData.data !== null) {
+                Alert.alert("Success", "Your task has been created", [
+                    {
+                        text:'To Dash',
+                        onPress:() => this.props.navigation.navigate("BottomTab"),
+                    },
+                ]
+                );
+                
+            } else if(getCreateData.error !== null) { 
+                Alert.alert("Failed", "Please fill in all the fields")
+            }
         }
-        else{
-            Alert.alert("Unable to Add Task", "Please fill in all the necessary fields.");
-        }
+                
+                
+        //         if(taskTitle !=='' && taskDetails !=='' && taskStatus !=='' ){
+        //     Alert.alert("Success", "Now task added!", 
+        //     [{text:"Hi there",
+        //     onPress:()=>this.props.navigation.navigate("Dashboard")}]);
+        // }
+        // else{
+        //     Alert.alert("Unable to Add Task", "Please fill in all the necessary fields.");
+        // }
     }
 
     async pickImagePressed(){
@@ -337,4 +371,12 @@ const styles={
     }
 }
 
-export default AddToDo;
+const mapStateToProps = (store)=>({
+    getCreateData: Actions.getCreateData(store),
+  });
+
+const mapDispatchToProps = {
+    onCreate: Actions.createToDo,
+  };
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddToDo);

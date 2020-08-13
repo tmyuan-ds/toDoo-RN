@@ -1,13 +1,18 @@
 import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from "react-native";
+import {View, Text, StyleSheet, TouchableOpacity, ActivityIndicator} from "react-native";
 
 class SubmitButtonComponent extends React.Component{
     render(){
         return(
           <TouchableOpacity 
-          style={styles.submitButtonHolder} 
-          onPress={this.props.navigate}>
-            <Text style={{fontWeight:"bold"}}>{this.props.submitButtonText}</Text>
+          style={[styles.submitButtonHolder, {opacity: this.props.loading? 0.5 : 1}]} 
+          onPress={this.props.navigate}
+          disabled={this.props.loading}>
+            {this.props.loading?
+             (<ActivityIndicator size="large" color="rgb(0, 150, 0)" />
+             ):(
+             <Text style={{fontWeight:"bold"}}>{this.props.submitButtonText}</Text>
+             )}
           </TouchableOpacity>  
         );
     }

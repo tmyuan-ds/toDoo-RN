@@ -1,6 +1,8 @@
 import {takeLatest, call ,all ,fork, put} from 'redux-saga/effects';
 import Actions from "actions";
 import * as api from "api";
+import {getStore} from "../../store/configureStore";
+
 
 //{data} destucture the data so we can avoid a step of console.log(data.data)
 function* register({data}) {
@@ -11,6 +13,7 @@ function* register({data}) {
     formData.append('email', data.email);
     formData.append('password', data.password);
 
+    // let store = getStore().getState();
     // //pass to the api
     //api.register 
 

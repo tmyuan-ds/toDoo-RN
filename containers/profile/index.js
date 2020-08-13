@@ -26,7 +26,7 @@ class Profile extends React.Component{
 
     render(){
         return(
-            <View style={{flex:1, backgroundColor: "black"}}>
+            <View style={{flex:1, backgroundColor: "grey"}}>
 
                  <View style={styles.profileDetails}>
                     <Image 
@@ -58,7 +58,8 @@ class Profile extends React.Component{
                 
                 <View style={styles.logoutSec}>
 
-                <TouchableOpacity onPress={()=>this.logoutPressed()}>
+                <TouchableOpacity style={styles.submitButtonHolder}
+                onPress={()=>this.logoutPressed()}>
                     <Text>Log Out</Text>
                 </TouchableOpacity>
 
@@ -88,6 +89,24 @@ const styles = {
         paddingLeft: 20,
         paddingRight: 20,
     },
+
+    submitButtonHolder: {
+        justifyContent: "center", 
+        alignItems: "center",
+        fontWeight:"bold",
+        backgroundColor: "rgb(0, 255, 0)",
+        paddingVertical:20,
+        marginVertical:20,
+        borderRadius:10,
+        shadowColor: "rgba(0,0,0,0.3)",
+        shadowRadius: 10,
+        shadowOpacity:1,
+        shadowOffset: { 
+        width: 10, 
+        height:10
+        },
+    },
+    
 
     profileDetailsTitle: {
         fontWeight: "bold",

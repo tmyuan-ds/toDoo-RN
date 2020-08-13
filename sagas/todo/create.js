@@ -13,7 +13,7 @@ function* createToDo({data}) {
     // formData.append("id",data.id);
     // console.log(data.id);
     let store = getStore().getState();
-        let token = Actions.activeUserSession(store).data;
+        let token = Actions.activateUserSession(store).data;
         console.log("token is: ", token);
         const headers ={ Authorization: `Bearer ${token}`};
         

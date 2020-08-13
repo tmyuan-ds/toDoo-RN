@@ -10,7 +10,9 @@ import Auth from "containers/auth";
 import Dashboard from "containers/dashboard";
 import Details from "containers/details";
 import Profile from "containers/profile";
-import AddToDo from "containers/form"
+import AddToDo from "containers/form";
+import TransitionBox from "containers/transition";
+// import { Transition } from "react-native-reanimated";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -63,6 +65,7 @@ class Navigator extends React.Component {
             <NavigationContainer>
                 <Stack.Navigator>
 
+
                     <Stack.Screen 
                     name="Auth" 
                     component={Auth} 
@@ -79,7 +82,7 @@ class Navigator extends React.Component {
                     <Stack.Screen
                     name='BottomTab'
                     component={BottomTab}
-
+                    
                     options=
                     {{
                         headerTitle:"ToDoo", 
@@ -119,6 +122,11 @@ class Navigator extends React.Component {
                     name="AddToDo" 
                     component={AddToDo}
                     /> 
+
+                    <Stack.Screen 
+                    name="TransitionBox" 
+                    component={TransitionBox}
+                    />
 
                 </Stack.Navigator>
             </NavigationContainer>
